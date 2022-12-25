@@ -16,7 +16,7 @@
 		],
 		"linebreak-style": [
 			"error",
-			"windows"
+			"unix"
 		],
 		"quotes": [
 			"error",
@@ -25,6 +25,10 @@
 		"semi": [
 			"error",
 			"always"
+		],
+		"comma-dangle": [
+			"error",
+			"always-multiline"
 		]
 	}
 }

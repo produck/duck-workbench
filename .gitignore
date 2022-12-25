@@ -102,3 +102,10 @@ dist
 
 # TernJS port file
 .tern-port
+
+# local debug
+.debug.mjs
+
+# Duck dist
+packages/**/index.cjs
+packages/**/version.mjs
