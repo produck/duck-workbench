@@ -15,3 +15,4 @@ export function defineKoaApp(
 
 export const definePlugin: Duck.AnyDefiner<Plugin>;
 export { defineKoaApp as define };
+export const DefaultFactory: Factory;
