@@ -7,7 +7,7 @@
 		"deps:install": "npm -v && npm i && lerna bootstrap",
 		"deps:clean": "lerna clean -y",
 		"lint": "eslint --fix packages/**/*.mjs",
-		"test": "lerna run build:extract && mocha \"packages/**/*.spec.mjs\" --no-diff -t 999999999 --delay",
+		"test": "lerna run build:extract && mocha \"packages/**/*.spec.mjs\" --no-diff -t 999999999",
 		"coverage": "c8 --exclude=**/*.spec.mjs --reporter=lcov npm run test",
 		"ci:install": "npm install",
 		"publish": "npm run lint && npm test && lerna publish --no-private"
