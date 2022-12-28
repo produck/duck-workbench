@@ -6,7 +6,7 @@ export interface KoaAppKit extends Duck.ProductKit { }
 interface KoaAppInstanceKit extends KoaAppKit { }
 
 type Factory = (app: Koa, Kit: KoaAppInstanceKit) => void;
-type Plugin = (Kit: KoaAppKit) => void;
+export type Plugin = (Kit: KoaAppKit) => void;
 
 export function defineKoaApp(
 	factory?: Factory,
