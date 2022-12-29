@@ -7,15 +7,15 @@ describe('DuckLogQuack.Transcriber()', function () {
 	it('should log a message.', function () {
 		const flag = [];
 
+		const Transcriber = DuckLogQuack.Transcriber({
+			appenders: [(message) => flag.push(message)],
+		});
+
 		Duck.define({
 			id: 'Foo',
 			components: [
 				DuckLog.Component({
-					bar: {
-						Transcriber: DuckLogQuack.Transcriber({
-							appenders: [(message) => flag.push(message)],
-						}),
-					},
+					bar: { Transcriber },
 				}),
 			],
 		}, function Foo({ Log }) {
