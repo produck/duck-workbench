@@ -82,7 +82,7 @@ describe('DuckCLICommander::Provider()', function () {
 			'--delay', '3000',
 		]);
 
-		assert.deepEqual(flags, [['admin'], { delay: 3000 }]);
+		assert.deepEqual(flags, [['admin'], { delay: '3000' }]);
 	});
 
 	it('should build a program with variadic arguments.', async function () {
