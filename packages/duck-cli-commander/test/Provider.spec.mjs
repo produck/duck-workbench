@@ -1,4 +1,4 @@
-import assert from 'node:assert';
+import assert from 'node:assert/strict';
 import * as Duck from '@produck/duck';
 import * as DuckCLI from '@produck/duck-cli';
 
