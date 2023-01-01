@@ -1,6 +1,6 @@
 import * as DuckCLI from '@produck/duck-cli';
 import { T } from '@produck/mold';
-import { Command } from 'commander';
+import { Command, Option, Argument } from 'commander';
 
 const OptionalToken = value => `[${value}]`;
 const RequiredToken = value => `<${value}>`;
@@ -17,13 +17,35 @@ function setOptions(command, optionList) {
 			flags.unshift(`-${option.alias},`);
 		}
 
-		if (T.Native.String(option.value)) {
-			const Token = option.allowBoolean ? OptionalToken : RequiredToken;
+		const hasValue = !T.Helper.Null(option.value);
 
-			flags.push(Token(option.value));
+		if (hasValue) {
+			const valueOptions = option.value;
+			const tokens = [valueOptions.name];
+			const Token = valueOptions.required ? RequiredToken : OptionalToken;
+
+			if (valueOptions.variadic) {
+				tokens.unshift('...');
+			}
+
+			flags.push(Token(tokens.join('')));
 		}
 
-		command.option(flags.join(' '), option.description, option.default);
+		const args = [flags.join(' ')];
+
+		if (typeof option.description === 'string') {
+			args.push(option.description);
+		}
+
+		const opt = new Option(...args);
+
+		opt.mandatory = option.required;
+
+		if (hasValue && !T.Helper.Null(option.value.default)) {
+			opt.default(option.value.default);
+		}
+
+		command.addOption(opt);
 	}
 }
 
@@ -41,8 +63,19 @@ function setArguments(command, argumentList) {
 		}
 
 		const token = Token(flags.join(''));
+		const args = [token];
 
-		command.argument(token);
+		if (T.Native.String(argument.description)) {
+			args.push(argument.description);
+		}
+
+		const arg = new Argument(...args);
+
+		if (!T.Helper.Null(argument.default)) {
+			arg.default(argument.default);
+		}
+
+		command.addArgument(arg);
 	}
 }
 
