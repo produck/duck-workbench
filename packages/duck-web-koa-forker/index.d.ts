@@ -4,6 +4,12 @@ import * as Mold from '@produck/mold';
 import * as Duck from '@produck/duck';
 import * as DuckWebKoa from '@produck/duck-web-koa';
 
+declare module '@produck/duck-web-koa' {
+	interface KoaAppKit {
+		Forker: () => Koa.Middleware;
+	}
+}
+
 type RouterProvider = (router: KoaForker.Router, Kit: KoaForkerKit) => void;
 
 export namespace Descriptor {
