@@ -102,10 +102,10 @@ export const Provider = DuckCLI.defineProvider({
 				setOptions(program, feature.options);
 				setAction(program, feature.handler);
 			},
-			commander: ({ parent, current, feature }) => {
+			commander: ({ parent, current, feature, isDefault }) => {
 				/** @type {Command} */
 				const parentCommand = map.get(parent);
-				const command = parentCommand.command(feature.name);
+				const command = parentCommand.command(feature.name, { isDefault });
 
 				map.set(current, command);
 				command.aliases(feature.aliases);
