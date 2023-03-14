@@ -98,6 +98,7 @@ export const Provider = DuckCLI.defineProvider({
 		return {
 			program: ({ current, feature }) => {
 				map.set(current, program);
+				program.description(feature.description);
 				setArguments(program, feature.arguments);
 				setOptions(program, feature.options);
 				setAction(program, feature.handler);
@@ -109,6 +110,7 @@ export const Provider = DuckCLI.defineProvider({
 
 				map.set(current, command);
 				command.aliases(feature.aliases);
+				command.description(feature.description);
 				setArguments(command, feature.arguments);
 				setOptions(command, feature.options);
 				setAction(command, feature.handler);
