@@ -1,6 +1,6 @@
 {
 	"name": "@produck/duck-web-koa-forker",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "",
 	"keywords": [],
 	"author": "chaoslee <chaos2lee@qq.com>",
@@ -41,7 +41,7 @@
 	"dependencies": {
 		"@produck/duck": "^1.0.5",
 		"@produck/duck-web": "^1.0.6",
-		"@produck/duck-web-koa": "^1.0.2",
+		"@produck/duck-web-koa": "^1.0.3",
 		"@produck/mold": "^0.3.1",
 		"koa-forker": "^0.1.1"
 	}
