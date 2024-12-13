@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import http from 'node:http';
+import { describe, it } from 'mocha';
 
 import * as Duck from '@produck/duck';
 import * as DuckWeb from '@produck/duck-web';
-import supertest from 'supertest';
 
 import * as DuckWebKoa from '../src/index.mjs';
 
@@ -66,7 +66,7 @@ describe('DuckWebKoa::::defineKoaApp()', function () {
 	it('should get product from http server.', async function () {
 		let server;
 
-		Duck.define({
+		const product = Duck.define({
 			id: 'foo',
 			components: [
 				DuckWeb.Component([
@@ -74,14 +74,20 @@ describe('DuckWebKoa::::defineKoaApp()', function () {
 				]),
 			],
 		}, function Mock({ Web }) {
-			const app = Web.Application('Bar');
+			return {
+				start() {
+					const app = Web.Application('Bar');
 
-			server = http.createServer(app).listen(8080);
+					server = http.createServer(app).listen(8080);
+				},
+			};
 		})();
 
-		const client = supertest('http://127.0.0.2:8080');
+		product.start();
 
-		await client.get('/').expect(200);
+		const response = await fetch('http://127.0.0.2:8080');
+
+		assert.equal(response.status, 200);
 		server.close();
 	});
 });

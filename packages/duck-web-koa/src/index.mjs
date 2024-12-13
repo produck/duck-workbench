@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import * as DuckWeb from '@produck/duck-web';
 import { defineAny } from '@produck/duck';
-import { T, U } from '@produck/mold';
+import { Assert } from '@produck/idiom';
 
 import * as Options from './Options.mjs';
 
@@ -10,9 +10,7 @@ export function DefaultFactory(app, { product }) {
 }
 
 export function defineKoaApp(factory = DefaultFactory, plugins = []) {
-	if (!T.Native.Function(factory)) {
-		U.throwError('factory', 'function');
-	}
+	Assert.Type.Function(factory, 'factory');
 
 	const finalPlugins = Options.normalize(plugins);
 

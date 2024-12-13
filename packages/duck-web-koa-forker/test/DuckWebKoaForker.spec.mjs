@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import http from 'node:http';
+import { describe, it } from 'mocha';
 
-import supertest from 'supertest';
 import * as Duck from '@produck/duck';
 import * as DuckWeb from '@produck/duck-web';
 import * as DuckWebKoa from '@produck/duck-web-koa';
@@ -56,21 +56,32 @@ describe('DuckWebKoaForkerPlugin()', function () {
 				]),
 			],
 		}, function Foo({ Web }) {
-			const app = Web.Application('Mock');
 
-			server = http.createServer(app).listen(8081);
-		})();
+			return {
+				start() {
+					const app = Web.Application('Mock');
 
-		const client = supertest('http://127.0.0.1:8081');
+					server = http.createServer(app).listen(8081);
+				},
+			};
+		})().start();
 
-		await client.get('/foo/project/1').expect(200);
-		await client.get('/foo/proj').expect(200);
-		await client.get('/api/project/1').expect(200);
-		await client.get('/api/proj').expect(200);
-		await client.get('/foo').expect(200);
-		await client.get('/api').expect(200);
-		await client.del('/api').expect(405);
-		await client.get('/foo/project').expect(404);
+		for (const [method, pathname, statusCode] of [
+			['GET', '/foo/project/1', 200],
+			['GET', '/foo/proj', 200],
+			['GET', '/api/project/1', 200],
+			['GET', '/api/proj', 200],
+			['GET', '/foo', 200],
+			['GET', '/api', 200],
+			['DELETE', '/api', 405],
+			['GET', '/foo/project', 404],
+		]) {
+			const response = await fetch(`http://127.0.0.1:8081${pathname}`, {
+				method,
+			});
+
+			assert.equal(response.status, statusCode);
+		}
 
 		server.close();
 	});

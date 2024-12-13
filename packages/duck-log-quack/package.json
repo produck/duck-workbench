@@ -9,7 +9,8 @@
 	"type": "module",
 	"exports": {
 		"import": "./src/index.mjs",
-		"require": "./src/index.cjs"
+		"require": "./src/index.cjs",
+		"types": "./index.d.ts"
 	},
 	"types": "index.d.ts",
 	"files": [
@@ -33,14 +34,9 @@
 		"url": "https://github.com/produck/duck-workbench/issues"
 	},
 	"homepage": "https://github.com/produck/duck-workbench#readme",
-	"devDependencies": {
-		"mocha": "^10.2.0",
-		"rollup": "^3.26.2"
-	},
 	"dependencies": {
-		"@produck/duck": "^1.0.5",
-		"@produck/duck-log": "^1.0.8",
-		"@produck/mold": "^0.3.1",
+		"@produck/duck": "^1.1.2",
+		"@produck/duck-log": "^1.1.2",
 		"@produck/quack": "^0.1.1"
 	}
 }
