@@ -47,7 +47,20 @@ export namespace Options {
 	export function normalize(descriptor: Object): Object;
 }
 
-interface KoaForkerKit extends DuckWebKoa.KoaAppKit { }
+export interface GlobalRootForkerKitHelper {}
+
+type ForkerHelper = GlobalRootForkerKitHelper & {
+	[key: string | symbol]: unknown;
+};
+
+interface KoaForkerRootKit extends DuckWebKoa.KoaAppKit {
+	Helper: ForkerHelper;
+}
+
+interface KoaForkerKit extends KoaForkerRootKit {
+	Root: KoaForkerRootKit;
+	Helper: ForkerHelper;
+}
 
 export function DuckWebKoaForkerPlugin(
 	descriptor: Descriptor.Object,

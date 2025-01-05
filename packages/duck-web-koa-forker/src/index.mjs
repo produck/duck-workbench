@@ -12,19 +12,27 @@ export function DuckWebKoaForkerPlugin(descriptor, options = {}) {
 	return DuckWebKoa.definePlugin(Kit => {
 		Kit.Forker = () => {
 			const rootRouter = new KoaForker.Router();
+			const RootKoaForkerKit = Kit('KoaForkerRoot');
 
-			(function build(descriptor, parent) {
+			Object.assign(RootKoaForkerKit, {
+				Forker: null,
+				Helper: {},
+			});
+
+			(function build(descriptor, parent, ParentKit) {
 				const { name, prefix, path, provider, uses } = descriptor;
 				const router = new KoaForker.Router({ name, prefix });
-				const KoaForkerKit = Kit(`KoaForker<${name}>`);
+				const KoaForkerKit = ParentKit(`KoaForker<${name}>`);
 
-				KoaForkerKit.Forker = undefined;
+				KoaForkerKit.Helper = {};
+				KoaForkerKit.Parent = ParentKit.Helper;
+				KoaForkerKit.Root = RootKoaForkerKit.Helper;
 				provider(router, KoaForkerKit);
 				parent.use(path, router);
-				uses.forEach(child => build(child, router));
+				uses.forEach(child => build(child, router, KoaForkerKit));
 
 				return router;
-			})(rootDescriptor, rootRouter);
+			}(rootDescriptor, rootRouter, RootKoaForkerKit));
 
 			return rootRouter.Middleware(finalOptions);
 		};

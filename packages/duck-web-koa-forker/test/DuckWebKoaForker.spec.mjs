@@ -1,4 +1,4 @@
-import assert from 'node:assert/strict';
+import * as assert from 'node:assert/strict';
 import http from 'node:http';
 import { describe, it } from 'mocha';
 
@@ -26,8 +26,10 @@ describe('DuckWebKoaForkerPlugin()', function () {
 		}, [
 			DuckWebKoaForker.Plugin({
 				path: ['/api', '/foo'],
-				provider: (router, { product, Kit }) => {
-					assert.ok(Kit.Forker === undefined);
+				provider: (router, { product, Kit, Root, Helper }) => {
+					Root.foo = true;
+					Helper.bar = false;
+					assert.ok(Kit.Forker === null);
 
 					router.get(async (ctx) => {
 						ctx.body = product;
@@ -36,7 +38,9 @@ describe('DuckWebKoaForkerPlugin()', function () {
 				},
 				uses: [{
 					path: ['/project/{projectId}', '/proj'],
-					provider: (router) => {
+					provider: (router, { Root, }) => {
+						assert.equal(Root.foo, true);
+
 						router.get(ctx => {
 							ctx.body = {
 								at: new Date(),
