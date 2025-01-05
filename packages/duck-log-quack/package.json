@@ -35,8 +35,8 @@
 	},
 	"homepage": "https://github.com/produck/duck-workbench#readme",
 	"dependencies": {
-		"@produck/duck": "^1.1.2",
-		"@produck/duck-log": "^1.1.2",
+		"@produck/duck": "^1.1.3",
+		"@produck/duck-log": "^1.1.3",
 		"@produck/quack": "^0.1.1"
 	}
 }
