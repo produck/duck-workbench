@@ -34,8 +34,8 @@
 	},
 	"homepage": "https://github.com/produck/duck-workbench#readme",
 	"dependencies": {
-		"@produck/duck": "^1.1.5",
-		"@produck/duck-web": "^1.1.6",
+		"@produck/duck": "^1.1.6",
+		"@produck/duck-web": "^1.1.7",
 		"@produck/duck-web-koa": "^1.1.3",
 		"@produck/mold": "^0.3.1",
 		"koa-forker": "^0.1.1"

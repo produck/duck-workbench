@@ -41,8 +41,8 @@
 		"@types/koa": "^2.15.0"
 	},
 	"dependencies": {
-		"@produck/duck": "^1.1.5",
-		"@produck/duck-web": "^1.1.6",
+		"@produck/duck": "^1.1.6",
+		"@produck/duck-web": "^1.1.7",
 		"@produck/idiom": "^0.4.3",
 		"@produck/mold": "^0.3.1",
 		"koa": "^2.16.0"
